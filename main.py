@@ -12,7 +12,7 @@ load_dotenv()
 async def genjson(ctx: discord.ApplicationContext,
                     secinfo: discord.Option(discord.Attachment, "secinfo.bin, SecureInfo_A"),
                     otp: discord.Option(discord.Attachment, "otp.bin"), 
-                    country: discord.Option(str, "Required for U and E regions", optional=True)):
+                    country: discord.Option(str, "Required for U and E regions", required=False)):
     
     try:
         tmpdir = str(ctx.interaction.id)
