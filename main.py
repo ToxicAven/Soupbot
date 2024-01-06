@@ -1,12 +1,14 @@
 import discord
 from dotenv import load_dotenv
 import os
+import sys
 from cleaninty.ctr.simpledevice import SimpleCtrDevice
 from pyctr.type.exefs import ExeFSReader
 import shutil
 
 bot = discord.Bot()
 load_dotenv()
+os.mkdir("/tmp/soop")
 
 @bot.slash_command(description="Generate a consoles soap key")
 async def genjson(ctx: discord.ApplicationContext,
@@ -15,7 +17,7 @@ async def genjson(ctx: discord.ApplicationContext,
                     country: discord.Option(str, "Required for U and E regions", required=False)):
     
     try:
-        tmpdir = str(ctx.interaction.id)
+        tmpdir = f"/tmp/soop/{ctx.interaction.id}"
         os.mkdir(tmpdir)
     except:
         await ctx.respond(ephemeral=True, content="Failed to create interaction workspace")
@@ -55,7 +57,7 @@ async def genjsonessential(ctx: discord.ApplicationContext,
                            essential: discord.Option(discord.Attachment, "essential.exefs"),
                            country: discord.Option(str, "Required for U and E regions", required=False)):
     try:
-        tmpdir = str(ctx.interaction.id)
+        tmpdir = f"/tmp/soop/{ctx.interaction.id}"
         os.mkdir(tmpdir)
     except:
         await ctx.respond(ephemeral=True, content="Failed to create interaction workspace")
