@@ -12,7 +12,7 @@ load_dotenv()
 async def genjson(ctx: discord.ApplicationContext,
                     secinfo: discord.Option(discord.Attachment, "secinfo.bin, SecureInfo_A"),
                     otp: discord.Option(discord.Attachment, "otp.bin"), 
-                    country: discord.Option(str, "Required for U and E regions", optional=True)):
+                    country: discord.Option(str, "Required for U and E regions", required=False)):
     
     try:
         tmpdir = str(ctx.interaction.id)
@@ -53,7 +53,7 @@ async def genjson(ctx: discord.ApplicationContext,
 @bot.slash_command(description="Generate a consoles soap key using essential.exefs")
 async def genjsonessential(ctx: discord.ApplicationContext,
                            essential: discord.Option(discord.Attachment, "essential.exefs"),
-                           country: discord.Option(str, "Required for U and E regions", optional=True)):
+                           country: discord.Option(str, "Required for U and E regions", required=False)):
     try:
         tmpdir = str(ctx.interaction.id)
         os.mkdir(tmpdir)
