@@ -18,14 +18,14 @@ async def genjson(ctx: discord.ApplicationContext,
         tmpdir = str(ctx.interaction.id)
         os.mkdir(tmpdir)
     except:
-        ctx.respond(ephemeral=True, content="Failed to create interaction workspace")
+        await ctx.respond(ephemeral=True, content="Failed to create interaction workspace")
         return
 
     try:
         await otp.save(f"{tmpdir}/otp.bin")
         await secinfo.save(f"{tmpdir}/secinfo.bin")
     except:
-        ctx.respond(ephemeral=True, content="Failed to save uploaded content")
+        await ctx.respond(ephemeral=True, content="Failed to save uploaded content")
         shutil.rmtree(tmpdir)
         return
     
@@ -58,7 +58,7 @@ async def genjsonessential(ctx: discord.ApplicationContext,
         tmpdir = str(ctx.interaction.id)
         os.mkdir(tmpdir)
     except:
-        ctx.respond(ephemeral=True, content="Failed to create interaction workspace")
+        await ctx.respond(ephemeral=True, content="Failed to create interaction workspace")
         return
     
     try:
