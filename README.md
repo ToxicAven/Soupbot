@@ -11,5 +11,5 @@ Requires a functional Cleaninty setup, which requires dumping keys from a 3DS un
 - [X] Generation of soap data using otp.bin & SecureInfo_A
 - [X] Generation of soap data using essential.exefs
 - [ ] Confirm functional Cleaninty/better Cleaninty troubleshooting
-- [ ] CheckReg
+- [X] CheckReg
 - [ ] EShopRegionChange
