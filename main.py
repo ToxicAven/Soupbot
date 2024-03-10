@@ -113,10 +113,6 @@ async def checkserial(ctx : discord.ApplicationContext,
         reader = ExeFSReader(BytesIO(data))
         if "secinfo" in reader.entries:
             data = reader.open("secinfo").read()
-            # ensure it's 273 bytes
-            if len(data) != 273:
-                await ctx.respond(ephemeral=True, content="Invalid secinfo in essential")
-                return
     except:
         pass
     
