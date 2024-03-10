@@ -97,7 +97,43 @@ async def checkreg(ctx : discord.ApplicationContext, jsonfile: discord.Option(di
     
     await ctx.respond(ephemeral=True, content=f"```\n{retStr}```")
 
+@bot.slash_command(description="check serial of console uniques")
+async def checkserial(ctx : discord.ApplicationContext, 
+                      infile: discord.Option(discord.Attachment, "essential.exefs or secinfo")):
+    await ctx.defer(ephemeral=True)
 
+    try:
+        data = await infile.read()
+    except:
+        await ctx.respond(ephemeral=True, content="Failed to read file")
+        return
+    
+    # try to read as essential
+    try:
+        reader = ExeFSReader(BytesIO(data))
+        if "secinfo" in reader.entries:
+            data = reader.open("secinfo").read()
+            # ensure it's 273 bytes
+            if len(data) != 273:
+                await ctx.respond(ephemeral=True, content="Invalid secinfo in essential")
+                return
+    except:
+        pass
+    
+    # The problem here is secinfo has no magic, so we can't really validate it
+    # 273 bytes is the only thing we can do lol
+    try:
+        if len(data) != 273:
+            await ctx.respond(ephemeral=True, content="Invalid secinfo provided")
+            return
+        
+        data = data[0x102:0x112]
+        data = data.replace(b"\x00", b"").upper().decode("utf-8")
+    except:
+        await ctx.respond(ephemeral=True, content="Failed to read serial")
+        return
+
+    await ctx.respond(ephemeral=True, content=f"Serial: {data}")
 
 @bot.event
 async def on_ready():
